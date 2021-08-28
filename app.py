@@ -1,14 +1,21 @@
 from flask import *
 from flask_pymongo import PyMongo
 import random
+from dotenv import load_dotenv
 from datetime import datetime
+import os
+
+#loading environment from .env file
+app_path=os.path.join(os.path.dirname(__file__),'.')
+dotenv_path=os.path.join(app_path,".env")
+load_dotenv(dotenv_path)
 
 myApp = Flask(__name__)
 myApp.debug = True
-myApp.secret_key = "bheem"
+myApp.secret_key = os.environ["SECRET_KEY"]
 
 myApp.config[
-    "MONGO_URI"] = "mongodb+srv://vedajanga:82601vut@cluster0.lqzsq.mongodb.net/projects?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
+    "MONGO_URI"] = os.environ["MONGO_URI"]
 mongo = PyMongo(myApp)
 
 
